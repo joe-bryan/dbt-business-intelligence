@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: dimension_customers
+    description: >
+      Table of customer and province information
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('staging_customers')
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: fact_orders
+    description: >
+      Table of all orders and related finance information
+    columns:
+      - name: order_id
+        description: >
+          Unique ID that also is used to join together the tables
+        tests:
+          - not_null
+          - unique

@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: customer_orders
+    description: >
+      Denormalized table of all orders placed by customers
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: order_id
+        tests:
+          - unique
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['out_of_stock', 'cancelled', 'shipped', 'processing', 'delivered']

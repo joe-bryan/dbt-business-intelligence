@@ -1,0 +1,15 @@
+config:
+  send_anonymous_usage_stats: False
+
+bi_denormalized:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: "2562548"
+      dbname: dbt
+      schema: data_warehouse

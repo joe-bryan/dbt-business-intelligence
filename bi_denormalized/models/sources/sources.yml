@@ -1,0 +1,54 @@
+
+version: 2
+
+sources:
+  - name: dbt
+    database: dbt
+    schema: data_warehouse
+    description: >
+      "Data from OTLP database that has been extracted and loaded"
+    tables:
+
+      - name: state
+        columns:
+          - name: state_id
+            description: "The primary key for this table"
+            tests:
+              - unique
+              - not_null
+
+      - name: customers
+        columns:
+          - name: customer_id
+            description: "The primary key for this table"
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        columns:
+          - name: order_id
+            description: "The primary key for this table"
+            tests:
+              - not_null
+              - unique
+          - name: customer_id
+            tests:
+              - relationships:
+                  to: source('dbt', 'customers')
+                  field: customer_id
+
+      - name: prices
+        columns: 
+          - name: amount_id
+            description: "The primary key for this table"
+            tests:
+              - not_null
+              - unique
+          - name: order_id
+            tests:
+              - relationships:
+                  to: source('dbt', 'orders')
+                  field: order_id
+
+

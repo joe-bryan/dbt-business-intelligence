@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: staging_customers
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: staging_orders
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['out_of_stock', 'cancelled', 'shipped', 'processing', 'delivered']
+
+  - name: staging_state
+    columns:
+      - name: state_id
+        tests:
+          - not_null
+
+  - name: staging_prices
+    columns:
+      - name: amount_id
+        tests:
+          - not_null
